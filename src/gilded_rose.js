@@ -21,6 +21,12 @@ class Rule {
   }
 }
 
+class NameRule extends Rule {
+  isApplicable(item) {
+    return item.name === this.condition;
+  }
+}
+
 class RuleManager {
   constructor(rules, guard) {
     this.rules = rules;
@@ -51,8 +57,8 @@ class RuleManager {
   }
 }
 
-const agedBrieRule = new Rule(
-  (item) => item.name === 'Aged Brie', 
+const agedBrieRule = new NameRule(
+  'Aged Brie', 
   (item) => {
     item.quality++; 
 
@@ -60,13 +66,13 @@ const agedBrieRule = new Rule(
   }
 );
 
-const sulfurasRule = new Rule(
-  (item) => item.name === 'Sulfuras, Hand of Ragnaros',
+const sulfurasRule = new NameRule(
+  'Sulfuras, Hand of Ragnaros',
   (item) => item
 );
 
-const backstageTicketRule = new Rule(
-  (item) => item.name === 'Backstage passes to a TAFKAL80ETC concert',
+const backstageTicketRule = new NameRule(
+  'Backstage passes to a TAFKAL80ETC concert',
   (item) => {
     if (item.sellIn <= 0) {
       item.quality = 0;
